@@ -23,7 +23,7 @@ function formatPhoneNumber(s) {
 function latLong(body) {
   let lat = body.results["0"].locations["0"].displayLatLng.lat;
   let lng = body.results["0"].locations["0"].displayLatLng.lng;
-  const location = (lat + "," + lng + "," + 5) ;
+  let location = (lat + "," + lng + "," + 5) ;
   return location;
 }
 
@@ -61,11 +61,10 @@ $(document).ready(function() {
 
     $('.home').click(function(e) {
       e.preventDefault();
-      $('#home-screen').toggle();
+      $('#home-screen').show();
       $('#name-search').hide();
       $('#issue-search').hide();
       $('#clear-search').hide();
-      $('.card').remove();
     });
 
     $('.searchSymptom').click(function(e) {
@@ -84,26 +83,21 @@ $(document).ready(function() {
       $('#clear-search').show()
     });
 
-
-
-
     //symptom click
     $('#issue-submit').click(function(e) {
       e.preventDefault();
       let issue = $('#issue').val();
-      let city= $('#location').val();
+      let city = $('#issue-location').val();
       $('#issue').val("");
-      $('#location').val("");
+      $('#issue-location').val("");
 
       let docService = new DocService();
       let promise = docService.getLatLong(city);
 
       promise.then(function(response){
         let body = JSON.parse(response);
-        console.log(body);
-
-        const location = latLong(body);
-        console.log(location);
+        let location = latLong(body);
+        
         let docService = new DocService();
         let promise = docService.getDocInfobyIssue(issue, location);
 
@@ -115,22 +109,49 @@ $(document).ready(function() {
       });
     });
 
-    //name click
     $('#name-submit').click(function(e) {
       e.preventDefault();
       let name = $('#name').val();
+      let city= $('#name-location').val();
       $('#name').val("");
+      $('#name-location').val("");
 
       let docService = new DocService();
-      let promise = docService.getDocInfobyName(name);
+      let promise = docService.getLatLong(city);
 
       promise.then(function(response){
         let body = JSON.parse(response);
 
-        template(body);
+        let location = latLong(body);
+        let docService = new DocService();
+        let promise = docService.getDocInfobyName(name, location);
+        console.log(name)
 
+        promise.then(function(response){
+          let body = JSON.parse(response);
+          console.log(body)
+          template(body);
+
+        });
       });
     });
+
+    // //name click
+    // $('#name-submit').click(function(e) {
+    //   e.preventDefault();
+    //   let name = $('#name').val();
+    //   $('#name').val("");
+
+    //   let docService = new DocService();
+    //   let promise = docService.getDocInfobyName(name);
+
+    //   promise.then(function(response){
+    //     let body = JSON.parse(response);
+
+    //     template(body);
+
+    //   });
+    // });
 
         
       }, function(error) {
