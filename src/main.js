@@ -14,11 +14,17 @@ function patients(bool){
     return bool;
 }
 
+function formatPhoneNumber(s) {
+  var s2 = (""+s).replace(/\D/g, '');
+  var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+  return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+}
+
 function template(body) {
   for(let i = 0; i < body.data.length; i++) {
-    let name = body.data[i].profile.first_name + "" + body.data[i].profile.last_name;
+    let name = body.data[i].profile.first_name + " " + body.data[i].profile.last_name;
      let bool = patients(body.data[i].practices["0"].accepts_new_patients);
-     let number = body.data[i].practices["0"].phones["0"].number;
+     let number = formatPhoneNumber(body.data[i].practices["0"].phones["0"].number);
      let address = body.data[i].practices["0"].visit_address.street;
      let image = body.data[i].profile.image_url;
      let website = body.data[i].practices["0"].website;       
@@ -28,7 +34,7 @@ function template(body) {
       }
 
       $('#info').append(
-        `<div class="card" style="width: 18rem;">
+        `<div class="card" style="width: 14rem;">
           <img class="card-img-top" src="${image}" alt="no pic">
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
@@ -59,14 +65,16 @@ $(document).ready(function() {
 
         template(body);
       });
+    });
+
     //name click
     $('#name-submit').click(function(e) {
       e.preventDefault();
-      let issue = $('#name').val();
+      let name = $('#name').val();
       $('#name').val("");
 
       let docService = new DocService();
-      let promise = docService.getDocInfobyIssue(issue);
+      let promise = docService.getDocInfobyName(name);
 
       promise.then(function(response){
         let body = JSON.parse(response);
@@ -74,12 +82,9 @@ $(document).ready(function() {
         template(body);
 
       });
-    
+    });
 
         
       }, function(error) {
         $('.showErrors').text(`There was an error processing your request: ${error.message}`);
     });
-    
-  });
-});
