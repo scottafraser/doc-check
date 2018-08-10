@@ -1,18 +1,27 @@
-# Project Title
+# Doctor Finder
 
-#### Epicodus JavaScript exercise, Date
+#### Epicodus JavaScript Week 2 8/10/18
 
-#### By Your Name Here
+#### Scott Fraser
 
 ## Description
 
-Add description here
+Excersise in API calls
 
 ## Specs
 
 | Behavior | Input | Output |
 |----------|-------|--------|
-| Behavior | input | output |
+| A user should be able to enter a medical issue and a city  to receive a list of doctors in that city that fit the search query 
+| portland,or ; cancer | list of doctors in portland who deal with cancer |
+A user should be able to to enter a name to receive a list of doctors in that city that fit the search query. 
+| portland,or ; james  | list of doctors in portland with james in their name |
+Info should be included about each doctor:
+| portland,or ; james |  first name, last name, address, phone number, website and whether or not the doctor is accepting new patients  |
+If the API call results in an error (any message not a 200 OK), the application should return a notification that states what the error is.
+| 230980-832cdshclks | error message |
+If the query response doesn't include any doctors (for instance, if no doctors meet the search criteria), the application should return a notification that states that no doctors meet the criteria.
+| doctor that doesn't exist | "no matching doctors!" |
 
 ## Setup on OSX
 
