@@ -19,7 +19,7 @@ $(document).ready(function() {
         let body = JSON.parse(response);
         $('.showDoc').text(`${body.data["0"].profile.first_name} ${body.data["0"].profile.last_name} who can help with ${issue}`);
         for(let i = 0; i < body.data.length; i++) {
-        
+        let name = body.data[i].profile.first_name + "" + body.data[i].profile.last_name
          let bool = body.data[i].practices["0"].accepts_new_patients
          let number = body.data[i].practices["0"].phones["0"].number;
          let address = body.data[i].practices["0"].visit_address.street
@@ -37,14 +37,11 @@ $(document).ready(function() {
           }
 
           $('#info').append(
-            `<div>
+            `<div class="info">
+              ${name}<br>
               <img src='${image}'> <br>
               ${number} <br> ${address} <br>
-              ${bool} <br> ${website}
-
-              
-              
-            </div>`);
+              ${bool} <br> ${website} `);
 
             
 
