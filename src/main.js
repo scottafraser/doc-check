@@ -5,6 +5,7 @@ import './styles.css';
 import { DocService } from'./doc-service.js';
 
 
+
 function patients(bool){
   if (bool == true){
     bool = "Accepting patients";
@@ -135,17 +136,17 @@ $(document).ready(function() {
         let location = latLong(body);
         let docService = new DocService();
         let promise = docService.getDocInfobyName(name, location);
-        console.log(name)
+        console.log(name);
 
         promise.then(function(response){
           let body = JSON.parse(response);
-          console.log(body)
+          console.log(body);
           template(body);
 
         });
       });
     });
         
-      }, function(error) {
-        $('.showErrors').text(`There was an error processing your request: ${error.message}`);
-    });
+    }, function(error) {
+      $('.showErrors').text(`There was an error processing your request: ${error.message}`);
+  });
