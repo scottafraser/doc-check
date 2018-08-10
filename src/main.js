@@ -17,10 +17,38 @@ $(document).ready(function() {
 
       promise.then(function(response){
         let body = JSON.parse(response);
-        $('.showDoc').text(`Doctors who can help with ${issue} is ${body.main.humidity}%`);
-        // for(let i = 0; i < body.length; i++) {
+        $('.showDoc').text(`${body.data["0"].profile.first_name} ${body.data["0"].profile.last_name} who can help with ${issue}`);
+        for(let i = 0; i < body.data.length; i++) {
+        
+         let bool = body.data[i].practices["0"].accepts_new_patients
+         let number = body.data[i].practices["0"].phones["0"].number;
+         let address = body.data[i].practices["0"].visit_address.street
+         let image = body.data[i].profile.image_url
+         let website = body.data[i].practices["0"].website
+         
+         if (bool == true){
+          bool = "Accepting patients";
+          } else {
+          bool = "Not Accepting Patients";
+          }
 
-        // }
+          if (website == undefined){
+            website = "";
+          }
+
+          $('#info').append(
+            `<div>
+              <img src='${image}'> <br>
+              ${number} <br> ${address} <br>
+              ${bool} <br> ${website}
+
+              
+              
+            </div>`);
+
+            
+
+        }
 
         console.log(body);
       }, function(error) {
