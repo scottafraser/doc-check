@@ -20,18 +20,30 @@
         </div>
       </div>
     </nav>
-    <div class="user-form">
-      <form>
-        <label for="issue">Symptom</label>
-        <input id="issue" type="text">
-        <button id="issue-submit">Enter</button>
-      </form>
+      <div class="user-forms">
+        <div id="issue-search">
+        <form>
+          <label for="issue">Symptom</label>
+          <input id="issue" type="text">
+          <button class="btn btn-info" id="issue-submit">Enter</button>
+        </form>
+      </div>
+    
+      <div id="name-search">
+        <form>
+          <label for="name">Name</label>
+          <input id="name" type="text">
+          <button class="btn btn-info" id="name-submit">Enter</button>
+        </form>
+      </div>
+      
+      <button class="btn btn-info" id="clear-search">Clear Search</button>
     </div>
-      <div class="showDoc">
-       <h1 class="showErrors"></h1>
-      </div>
-      <div id="info">
-      </div>
+    <div class="showDoc">
+      <h1 class="showErrors"></h1>
+    </div>
+    <div id="info">
+    </div>
   </div>
 </body>
 </html>

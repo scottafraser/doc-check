@@ -2,15 +2,24 @@ body {
   background-color: #fffff0;
 }
 
-.user-form {
+.user-forms {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-content: space-around;
+
 }
 
 #info {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 10px;
+  display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-top: 15px;
+	padding: 1.5%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
+
