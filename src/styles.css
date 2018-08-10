@@ -1,3 +1,9 @@
 body {
   background-color: #fffff0;
 }
+
+.user-form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
