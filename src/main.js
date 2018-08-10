@@ -51,6 +51,31 @@ $(document).ready(function() {
       e.preventDefault();
       $('.card').remove();
     });
+
+    $('.home').click(function(e) {
+      e.preventDefault();
+      $('#home-screen').show();
+      $('#name-search').hide();
+      $('#issue-search').hide();
+      $('#clear-search').hide()
+    });
+
+    $('.searchSymptom').click(function(e) {
+      e.preventDefault();
+      $('#home-screen').hide();
+      $('#name-search').hide();
+      $('#issue-search').show();
+      $('#clear-search').show()
+    });
+
+    $('.searchName').click(function(e) {
+      e.preventDefault();
+      $('#home-screen').hide();
+      $('#name-search').show();
+      $('#issue-search').hide();
+      $('#clear-search').show()
+    });
+
     //symptom click
     $('#issue-submit').click(function(e) {
       e.preventDefault();

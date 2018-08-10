@@ -2,12 +2,20 @@ body {
   background-color: #fffff0;
 }
 
+.align {
+  margin: 20px;
+  padding: 10px;
+}
+
 .user-forms {
   display: flex;
   justify-content: center;
-  align-content: space-around;
-
+  align-items: center;
+  align-content: space-between;
+  margin: 10px;
+  height: 10%;
 }
+
 
 #info {
   display: -webkit-flex;
@@ -22,4 +30,26 @@ body {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+#issue-search {
+  display: none;
+}
+
+#name-search {
+  display: none;
+}
+
+#clear-search {
+  display: none;
+  margin: none;
+}
+
+#home-screen {
+  margin: 10px;
+  padding: 10px;
+}
+
+
+
+
 
