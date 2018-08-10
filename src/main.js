@@ -20,6 +20,13 @@ function formatPhoneNumber(s) {
   return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
 }
 
+function latLong(body) {
+  let lat = body.results["0"].locations["0"].displayLatLng.lat;
+  let lng = body.results["0"].locations["0"].displayLatLng.lng;
+  const location = (lat + "," + lng + "," + 5) ;
+  return location;
+}
+
 function template(body) {
   for(let i = 0; i < body.data.length; i++) {
     let name = body.data[i].profile.first_name + " " + body.data[i].profile.last_name;
@@ -54,10 +61,11 @@ $(document).ready(function() {
 
     $('.home').click(function(e) {
       e.preventDefault();
-      $('#home-screen').show();
+      $('#home-screen').toggle();
       $('#name-search').hide();
       $('#issue-search').hide();
-      $('#clear-search').hide()
+      $('#clear-search').hide();
+      $('.card').remove();
     });
 
     $('.searchSymptom').click(function(e) {
@@ -76,19 +84,34 @@ $(document).ready(function() {
       $('#clear-search').show()
     });
 
+
+
+
     //symptom click
     $('#issue-submit').click(function(e) {
       e.preventDefault();
       let issue = $('#issue').val();
+      let city= $('#location').val();
       $('#issue').val("");
+      $('#location').val("");
 
       let docService = new DocService();
-      let promise = docService.getDocInfobyIssue(issue);
+      let promise = docService.getLatLong(city);
 
       promise.then(function(response){
         let body = JSON.parse(response);
+        console.log(body);
 
-        template(body);
+        const location = latLong(body);
+        console.log(location);
+        let docService = new DocService();
+        let promise = docService.getDocInfobyIssue(issue, location);
+
+        promise.then(function(response){
+          let body = JSON.parse(response);
+
+          template(body);
+        });
       });
     });
 
